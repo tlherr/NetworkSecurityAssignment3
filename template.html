@@ -63,6 +63,8 @@ match address 100
 !
 interface {{router.outside_interface}}
 !
+description "WAN INTERFACE"
+!
 crypto map {{router.map_name}}
 !
 access-list 100 permit ip {{router.local_internal_network}} 0.0.0.255 {{router.remote_internal_network}} 0.0.0.255
@@ -77,4 +79,8 @@ access-list 1 permit {{router.local_internal_network}} 0.0.0.255
 access-list 122 deny ip {{router.local_internal_network}} 0.0.0.255 {{router.remote_internal_network}} 0.0.0.255
 !
 access-list 122 permit ip {{router.local_internal_network}} 0.0.0.255 any
+!
+ip nat ins source list 122 interface {{ router.outside_interface }} overload
+!
+no ip nat ins source list 1
 !
