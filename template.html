@@ -5,11 +5,21 @@ Config for Router: {{ router.name }}
 
 ## Enable Security Package
 
+!
 enable
 !
 config terminal
 !
 license boot module c2900 technology-package securityk9
+yes
+!
+end
+!
+write
+!
+reload
+yes
+!
 
 {# PHASE 1 #}
 enable
