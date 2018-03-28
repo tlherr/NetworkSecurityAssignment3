@@ -61,7 +61,7 @@ templateEnv = jinja2.Environment(loader=templateLoader)
 TEMPLATE_FILE = "template.html"
 template = templateEnv.get_template(TEMPLATE_FILE)
 
-print("To Disable Annoying DNS: Disable DNS lookup: no ip domain-lookup")
+print("To Disable Annoying DNS lookup: no ip domain-lookup")
 
 print(template.render(router=router1))
 print(template.render(router=router2))
