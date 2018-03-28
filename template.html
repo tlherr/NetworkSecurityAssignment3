@@ -22,6 +22,7 @@ yes
 !
 
 {# PHASE 1 #}
+!
 enable
 !
 config terminal
@@ -33,11 +34,10 @@ hash md5
 authentication pre-share
 !
 crypto isakmp key {{ router.key }} address {{ router.remote_peer_ip }}
+!
 
 {# PHASE 2 #}
-enable
-!
-config terminal
+
 !
 crypto ipsec transform-set {{router.set_name}} esp-des esp-md5-hmac
 !
@@ -49,34 +49,24 @@ set transform-set myset
 !
 match address 100
 !
-end
 
 {# PHASE 3: (Apply Crypto Map to outside Interface) #}
-enable
-!
-config terminal
+
 !
 interface {{router.outside_interface}}
 !
 crypto map {{router.map_name}}
 !
 access-list 100 permit ip {{router.local_internal_network}} 0.0.0.255 {{router.remote_internal_network}} 0.0.0.255
-
-
-
-enable
-!
-config terminal
 !
 ip nat inside source list 1 interface {{router.inside_interface}} overload
 !
 access-list 1 permit {{router.local_internal_network}} 0.0.0.255
+!
 
 {# Change NAT #}
-enable
-!
-config terminal
 !
 access-list 122 deny ip {{router.local_internal_network}} 0.0.0.255 {{router.remote_internal_network}} 0.0.0.255
 !
 access-list 122 permit ip {{router.local_internal_network}} 0.0.0.255 any
+!
