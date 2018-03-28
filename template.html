@@ -1,46 +1,72 @@
 
+=====================================
 Config for Router: {{ router.name }}
+=====================================
 
 ## Enable Security Package
 
 enable
+!
 config terminal
+!
 license boot module c2900 technology-package securityk9
 
-### PHASE 1:
+{# PHASE 1 #}
 enable
+!
 config terminal
-Router1(config)#crypto isakmp policy 10
-Router1(config-isakmp)#hash md5
-Router1(config-isakmp)#authentication pre-share
-Router1(config)#crypto isakmp key {{ router.key }} address {{ router.remote_peer_ip }}
+!
+crypto isakmp policy 10
+!
+hash md5
+!
+authentication pre-share
+!
+crypto isakmp key {{ router.key }} address {{ router.remote_peer_ip }}
 
-### PHASE 2:
+{# PHASE 2 #}
 enable
+!
 config terminal
-Router1(config)#crypto ipsec transform-set {{router.set_name}} esp-des esp-md5-hmac
-Router1(config)#crypto map {{router.map_name}} 10 ipsec-isakmp
+!
+crypto ipsec transform-set {{router.set_name}} esp-des esp-md5-hmac
+!
+crypto map {{router.map_name}} 10 ipsec-isakmp
+!
+set peer {{router.remote_peer_ip}}
+!
+set transform-set myset
+!
+match address 100
+!
+end
 
-Router1(config-crypto-map)#set peer {{router.remote_peer_ip}}
-Router1(config-crypto-map)#set transform-set myset
-Router1(config-crypto-map)#match address 100
-Router1(config-crypto-map)#end
-
-### PHASE 3: (Apply Crypto Map to outside Interface)
+{# PHASE 3: (Apply Crypto Map to outside Interface) #}
 enable
+!
 config terminal
-Router1(config)#interface gi0/0
-Router1(config-if)#crypto map {{router.map_name}}
+!
+interface {{router.outside_interface}}
+!
+crypto map {{router.map_name}}
+!
+access-list 100 permit ip {{router.local_internal_network}} 0.0.0.255 {{router.remote_internal_network}} 0.0.0.255
 
-Router1(config)#access-list 100 permit ip {{router.local_internal_network}} 0.0.0.255 {{router.remote_internal_network}} 0.0.0.255
+
 
 enable
+!
 config terminal
-ip nat inside source list 1 interface gi0/0 overload
+!
+ip nat inside source list 1 interface {{router.inside_interface}} overload
+!
 access-list 1 permit {{router.local_internal_network}} 0.0.0.255
 
-# Change NAT
+{# Change NAT #}
 enable
+!
 config terminal
-Router1(config)#access-list 122 deny ip {{router.local_internal_network}} 0.0.0.255 {{router.remote_internal_network}} 0.0.0.255
-Router1(config)#access-list 122 permit ip {{router.local_internal_network}} 0.0.0.255 any
+!
+access-list 122 deny ip {{router.local_internal_network}} 0.0.0.255 {{router.remote_internal_network}} 0.0.0.255
+!
+access-list 122 permit ip {{router.local_internal_network}} 0.0.0.255 any

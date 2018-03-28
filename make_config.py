@@ -13,6 +13,8 @@ router1 = {
         'remote_peer_ip': '10.100.100.2',
         'local_internal_network': '10.1.1.0',
         'remote_internal_network': '10.20.20.0',
+        'outside_interface': 'gi0/0',
+        'inside_interface': 'gi0/1',
         'key': 'testkey',
         'set_name': 'testset',
         'map_name': 'testmap'
@@ -23,6 +25,8 @@ router2 = {
         'remote_peer_ip': '10.100.100.2',
         'local_internal_network': '10.10.10.0',
         'remote_internal_network': '10.20.20.0',
+        'outside_interface': 'gi0/1',
+        'inside_interface': 'gi0/0',
         'key': 'testkey',
         'set_name': 'testset',
         'map_name': 'testmap'
@@ -33,6 +37,8 @@ router3_1 = {
         'remote_peer_ip': '172.16.1.1',
         'local_internal_network': '10.20.20.0',
         'remote_internal_network': '10.1.1.0',
+        'outside_interface': 'gi0/2',
+        'inside_interface': 'gi0/0',
         'key': 'testkey',
         'set_name': 'testset',
         'map_name': 'testmap'
@@ -43,6 +49,8 @@ router3_2 = {
         'remote_peer_ip': '10.0.0.2',
         'local_internal_network': '10.20.20.0',
         'remote_internal_network': '10.10.10.0',
+        'outside_interface': 'gi0/2',
+        'inside_interface': 'gi0/0',
         'key': 'testkey',
         'set_name': 'testset',
         'map_name': 'testmap'
