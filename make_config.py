@@ -62,6 +62,7 @@ TEMPLATE_FILE = "template.html"
 template = templateEnv.get_template(TEMPLATE_FILE)
 
 print("To Disable Annoying DNS lookup: no ip domain-lookup")
+print("Run Part 1 then Part 2 for each Router")
 
 print(template.render(router=router1))
 print(template.render(router=router2))
