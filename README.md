@@ -23,6 +23,12 @@ This assignment is worth 15% of your final mark.   Total marks available are….
 Assignments will be accepted after the due date with a 10% deduction in mark per day late.
 
 
+#### Verification Commands
+
+    show crypto ipsec sa—Shows the phase 2 Security Associations (SAs).
+
+    show crypto isakmp sa—Shows the phase 1 SAs.
+
 #### Debug Commands
 
     debug crypto ipsec      Shows the IPsec negotiations of phase 2.
