@@ -39,8 +39,6 @@ crypto isakmp policy 10
 !
 hash md5
 !
-group 2
-!
 authentication pre-share
 !
 {# Create the Phase 2 policy for actual data encryption #}
@@ -49,7 +47,7 @@ crypto isakmp key {{ router.key }} address {{ router.remote_peer_ip }}
 
 {# PHASE 2: Create actual crypto map. Specify peer IP address, transform set, ACL for split tunneling #}
 !
-crypto ipsec transform-set {{router.set_name}} esp-3des esp-md5-hmac
+crypto ipsec transform-set {{router.set_name}} esp-des esp-md5-hmac
 !
 crypto map {{router.map_name}} 10 ipsec-isakmp
 !
@@ -61,7 +59,7 @@ set pfs group1
 !
 set transform-set {{router.set_name}}
 !
-match address 110
+match address 100
 !
 
 {# PHASE 3: Apply Crypto Map to outside Interface #}
@@ -72,7 +70,7 @@ interface {{router.outside_interface}}
 crypto map {{router.map_name}}
 !
 {# Define interesting traffic #}
-access-list 110 permit ip {{router.local_internal_network}} 0.0.0.255 {{router.remote_internal_network}} 0.0.0.255
+access-list 100 permit ip {{router.local_internal_network}} 0.0.0.255 {{router.remote_internal_network}} 0.0.0.255
 !
 ip nat inside source list 1 interface {{router.inside_interface}} overload
 !
@@ -86,6 +84,4 @@ access-list 122 deny ip {{router.local_internal_network}} 0.0.0.255 {{router.rem
 access-list 122 permit ip {{router.local_internal_network}} 0.0.0.255 any
 !
 ip nat inside source list 122 interface {{ router.outside_interface }} overload
-!
-no ip nat ins source list 1
 !
