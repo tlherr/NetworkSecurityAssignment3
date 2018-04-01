@@ -16,6 +16,7 @@ router1 = {
         'outside_interface': 'gi0/0',
         'inside_interface': 'gi0/1',
         'map_description': 'VPN Connection to Router 3',
+        'isakmp_policy_number': '10',
         'key': 'cP7YWuhfWHKLbYdS',
         'set_name': 'set_vpn_to_router_three',
         'map_name': 'map_vpn_to_router_three'
@@ -29,6 +30,7 @@ router2 = {
         'outside_interface': 'gi0/1',
         'inside_interface': 'gi0/0',
         'map_description': 'VPN Connection to Router 3',
+        'isakmp_policy_number': '10',
         'key': 'Fa8TRtb7BtVxQ7c5',
         'set_name': 'set_vpn_to_router_three',
         'map_name': 'map_vpn_to_router_three'
@@ -42,9 +44,10 @@ router3_1 = {
         'outside_interface': 'gi0/2',
         'inside_interface': 'gi0/0',
         'map_description': 'VPN Connection to Router 1',
+        'isakmp_policy_number': '10',
         'key': 'cP7YWuhfWHKLbYdS',
-        'set_name': 'map_vpn_to_router_one',
-        'map_name': 'map_vpn_to_router_one'
+        'set_name': 'set_vpn_to_router_one',
+        'map_name': 'map_lan_vpn'
     }
 
 router3_2 = {
@@ -55,15 +58,16 @@ router3_2 = {
         'outside_interface': 'gi0/2',
         'inside_interface': 'gi0/0',
         'map_description': 'VPN Connection to Router 2',
+        'isakmp_policy_number': '20',
         'key': 'Fa8TRtb7BtVxQ7c5',
-        'set_name': 'map_vpn_to_router_two',
-        'map_name': 'map_vpn_to_router_one'
+        'set_name': 'set_vpn_to_router_two',
+        'map_name': 'map_lan_vpn'
     }
 
 templateLoader = jinja2.FileSystemLoader(searchpath="./")
 templateEnv = jinja2.Environment(loader=templateLoader)
-TEMPLATE_FILE = "template.html"
-template = templateEnv.get_template(TEMPLATE_FILE)
+template = templateEnv.get_template("template.html")
+
 
 print("To Disable Annoying DNS lookup: no ip domain-lookup")
 print("Run Part 1 then Part 2 for each Router")

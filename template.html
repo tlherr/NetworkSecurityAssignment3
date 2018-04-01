@@ -19,11 +19,8 @@ yes
 !
 end
 !
-copy run start
-!
-reload
-yes
-!
+
+COPY RUN START/RELOAD
 
 +++++++++++++++++++++++++++++++++++++
 Part 2: Config
@@ -35,7 +32,7 @@ enable
 !
 config terminal
 !
-crypto isakmp policy 10
+crypto isakmp policy {{router.isakmp_policy_number}}
 !
 hash md5
 !
@@ -62,7 +59,7 @@ interface {{router.outside_interface}}
 !
 crypto map {{router.map_name}}
 !
-{# Define interesting traffic #}
+{# Define interesting traffic - Add remarks to ACLs #}
 access-list 110 permit ip {{router.local_internal_network}} 0.0.0.255 {{router.remote_internal_network}} 0.0.0.255
 !
 ip nat inside source list 1 interface {{router.inside_interface}} overload
@@ -78,6 +75,4 @@ ip nat inside source list 122 interface {{ router.outside_interface }} overload
 !
 no ip nat ins source list 1
 !
-copy run start
-!
-reload
+COPY RUN START/RELOAD

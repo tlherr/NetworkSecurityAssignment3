@@ -22,12 +22,13 @@ Please remember to do your own work.  (Working in a group is fine but each stude
 This assignment is worth 15% of your final mark.   Total marks available are…..30    Submit your working Packet Tracer File as well as your word doc with your screen shots in it.
 Assignments will be accepted after the due date with a 10% deduction in mark per day late.
 
-
 #### Verification Commands
 
     show crypto ipsec sa—Shows the phase 2 Security Associations (SAs).
 
     show crypto isakmp sa—Shows the phase 1 SAs.
+    
+    show ip nat translation
 
 #### Debug Commands
 
@@ -40,3 +41,7 @@ Assignments will be accepted after the due date with a 10% deduction in mark per
     clear crypto isakmp     Clears the SAs related to phase 1.
 
     clear crypto sa         Clears the SAs related to phase 2.
+    
+    debug ip packet 
+    
+    debug ip nat    
